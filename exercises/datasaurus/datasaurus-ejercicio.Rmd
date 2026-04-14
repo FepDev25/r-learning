@@ -1,0 +1,63 @@
+---
+title: "DataSaurus - Minería de Datos"
+author: "Diego Peralta"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## 1. Instalación de paquetes
+
+Solo se instalan una vez. Después solo se cargan con `library()`.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r instalar, eval=FALSE}
+install.packages("tidyverse")
+install.packages("datasauRus")
+```
+
+```{r librerias, message=FALSE, warning=FALSE}
+library(tidyverse)    # incluye dplyr y ggplot2
+library(datasauRus)   # contiene el dataset datasaurus_dozen
+```
+
+```{r explorar}
+# Ver las primeras filas
+head(datasaurus_dozen)
+
+# ¿Cuántos datasets distintos hay?
+unique(datasaurus_dozen$dataset)
+```
+
+```{r resumen_estadistico}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(
+    mean_x    = mean(x),
+    mean_y    = mean(y),
+    std_dev_x = sd(x),
+    std_dev_y = sd(y),
+    corr_x_y  = cor(x, y)
+  )
+```
+
+```{r grafica, fig.width=10, fig.height=8}
+ggplot(datasaurus_dozen, aes(x = x, y = y, colour = dataset)) +
+  geom_point(size = 0.8) +
+  theme_void() +
+  theme(legend.position = "none") +
+  facet_wrap(~dataset, ncol = 3)
+```
+
+```{r regresion}
+# Modelo por cada dataset
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(
+    intercepto  = lm(y ~ x)$coefficients[1],
+    pendiente   = lm(y ~ x)$coefficients[2],
+    r_cuadrado  = summary(lm(y ~ x))$r.squared
+  )
+```
