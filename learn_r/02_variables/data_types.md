@@ -1,29 +1,61 @@
-# Data Types
-
-- R is a language designed to store, manipulate, and work with Data.
-- R provides several specialized data structures referred to as objects.
+# Variables y Tipos de Datos
 
 ## Variables
 
-- Variables are used to store data.
-- ![Data types](data_types.png)
+- Las variables se usan para almacenar datos.
+- Se asignan con el operador `<-`.
+- R es dinámico: el tipo de una variable puede cambiar asignando un nuevo valor.
 
-- class vs typeof:
-    - class es la categoría general a la que pertenece un objeto (por ejemplo, "numeric", "character", "data.frame").
-    - typeof es el tipo de datos específico que describe cómo se almacena el objeto en memoria (por ejemplo, "double", "integer", "character").
+![Data types](data_types.png)
 
-## Basic Methods for Handling Variables
+## Tipos de datos
 
-- Listening: `ls()`
-- Removing: `rm()`, para remover variables especificas
+| Tipo        | Descripción                        | Ejemplo               |
+| ----------- | ---------------------------------- | --------------------- |
+| `numeric`   | Números con decimales              | `4.56`, `10`          |
+| `integer`   | Números enteros                    | `3:10`                |
+| `character` | Cadenas de texto                   | `"hola"`, `"10"`      |
+| `logical`   | Valores booleanos                  | `TRUE`, `FALSE`       |
+| `complex`   | Números complejos                  | `5i`                  |
+
+## `class()` vs `typeof()`
+
+- **`class()`**: categoría general del objeto (ej. `"numeric"`, `"character"`).
+- **`typeof()`**: cómo se almacena internamente en memoria (ej. `"double"`, `"integer"`).
+
+## Funciones básicas para variables
+
+```r
+x <- 5
+ls()            # lista todas las variables en el entorno
+rm(x)           # elimina una variable
+typeof(x)       # tipo interno de x
+length(x)       # longitud de x
+```
 
 ## Strings
 
-- Se crean como cadenas de caracteres usando comillas dobles o simples.
-- Se pueden usar funciones como `cat()` para imprimir cadenas de caracteres.
-- ![Escape sequences](escape_sequences.png)
+- Se crean con comillas dobles `""` o simples `''`.
+- `cat()`: imprime texto limpio sin comillas.
+- `nchar()`: devuelve la cantidad de caracteres.
+- `paste()`: concatena strings (acepta `sep` para cambiar el separador).
+- `rep()`: repite un string n veces.
 
-## Difference between `cat()` and `print()`
+```r
+cat("Aprendiendo R\n")
+nchar("Hola")                    # 4
+paste("Hola", "mundo")           # "Hola mundo"
+paste("Hola", "mundo", sep = "-") # "Hola-mundo"
+rep("R", times = 3)              # "R" "R" "R"
+```
 
-- `print()` es una función genérica que muestra la representación de un objeto en la consola, incluyendo comillas para cadenas de caracteres y otros detalles de formato.
-- `cat()` es una función que concatena y muestra cadenas de caracteres sin comillas ni formato adicional, lo que la hace útil para imprimir texto de manera más limpia y legible.
+### Secuencias de escape
+
+![Escape sequences](escape_sequences.png)
+
+## `cat()` vs `print()`
+
+| Función   | Comportamiento                                            |
+| --------- | --------------------------------------------------------- |
+| `print()` | Muestra el objeto con formato (comillas en strings, etc.) |
+| `cat()`   | Imprime texto limpio sin comillas ni formato adicional    |
