@@ -1,0 +1,5 @@
+Alex,  California, NA
+Brian,  NewYork, NA
+Charles,  Boston, NA
+,  14, 8400
+Charles,  Boston,  875,  M,  13, 11375
